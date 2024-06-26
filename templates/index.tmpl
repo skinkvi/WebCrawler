@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    {{ if .results }}
+        <h1>Search results</h1>
+        <ul>
+            {{ range .results }}
+                <li>
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+            {{ end }}
+        </ul>
+        <button id="clear-results" onclick="clearResults()">Clear results</button>
+
+    {{ else }}
+        <h1>Web Crawler Search</h1>
+        <form action="/search" method="post">
+    <label for="query">Search query:</label><br>
+    <input type="text" id="query" name="query" required autofocus placeholder="Enter search query..."><br>
+    <input type="submit" value="Submit">
+</form>
+
+</form>
+
+    {{ end }}
+    <script>
+    function clearResults() {
+        // Получаем все элементы <a> на странице
+        var links = document.getElementsByTagName('a');
+
+        // Удаляем каждый элемент <a>
+        for (var i = links.length - 1; i >= 0; i--) {
+            links[i].parentNode.removeChild(links[i]);
+        }
+    }
+</script>
+
+</body>
+</html>
